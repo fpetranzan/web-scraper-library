@@ -3,14 +3,13 @@ package com.scraper.webscraper;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.List;
 
 public class WebScraper {
-    
-    public Element findElement(String url, List<String> htmlTag) throws IOException {
+
+    public String findElement(String url, List<String> htmlTag) throws IOException {
         Element doc = Jsoup.connect(url).get();
         StringBuilder HTML_TAG = new StringBuilder();
 
@@ -36,10 +35,10 @@ public class WebScraper {
             }
         }
 
-        return doc.select(HTML_TAG.toString()).get(0);
+        return doc.select(HTML_TAG.toString()).eachText().get(0);
     }
 
-    public Elements findElements(String url, List<String> htmlTag) throws IOException{
+    public List<String> findElements(String url, List<String> htmlTag) throws IOException{
         Element doc = Jsoup.connect(url).get();
         StringBuilder HTML_TAG = new StringBuilder();
 
@@ -65,6 +64,6 @@ public class WebScraper {
             }
         }
 
-        return doc.select(HTML_TAG.toString());
+        return doc.select(HTML_TAG.toString()).eachText();
     }
 }
